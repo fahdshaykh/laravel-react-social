@@ -39,4 +39,34 @@ class PostController extends Controller
 
         return redirect()->route('posts.index');
     }
+
+    public function edit(string $id)
+    {
+        $post = Post::findOrFail($id);
+
+        return Inertia::render('posts/edit', [
+            'post' => $post,
+        ]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->update($request->only('title', 'body'));
+
+        return redirect()->route('posts.index');
+    }
+
+    public function destroy(string $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->route('posts.index');
+    }
 }

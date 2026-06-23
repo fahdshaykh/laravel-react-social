@@ -1,12 +1,20 @@
 import { Link } from "@inertiajs/react";
 import { Post } from "@/types/post";
 import Applayout from "@/layouts/app-layout";
+import { router } from '@inertiajs/react';
 
 interface indexPostProps {
     posts: Post[];
 }
 
 function index({ posts }: indexPostProps) {
+
+    const handleDelete = (id) => {
+        if (confirm('Are you sure you want to delete this post?')) {
+            router.delete(`/posts/${id}`);
+        }
+    };
+
   return (
     <Applayout>
         
@@ -28,6 +36,15 @@ function index({ posts }: indexPostProps) {
                             <p className="mt-2 text-lg">
                                 {post.body.length > 100 ? post.body.substring(0, 100) + '...' : post.body}
                             </p>
+
+                            <div className="mt-4">
+                                <Link href={`/posts/${post.id}/edit`} className="text-blue-500 hover:underline mr-4">
+                                    Edit
+                                </Link>
+                                <button className="text-red-500 hover:underline mr-4" onClick={() => handleDelete(post.id)}>
+                                    Delete
+                                </button>
+                            </div>
                         </article>
                     ))}
                 </div>

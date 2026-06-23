@@ -1,3 +1,4 @@
+import AppHeader from "@/components/app-header";
 import { ReactNode } from "react";
 
 interface Applayoutprops {
@@ -6,11 +7,13 @@ interface Applayoutprops {
 
 export default function Applayout({ children}: Applayoutprops) {
     return (
-        <div>
-            <h1 className="text-3xl font-bold">Common part</h1>
-            <div className="mt-4">
-                {children}
-            </div>
+        <div className="min-h-screen bg-gray-50">
+            <AppHeader />
+            <main className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+                <div className="bg-white shadow-md rounded-lg p-6">
+                    {children}
+                </div>
+            </main>
         </div>
     );
 }

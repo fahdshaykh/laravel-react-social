@@ -1,12 +1,9 @@
 import { Link } from "@inertiajs/react";
 import Applayout from "@/layouts/app-layout";
+import { Post } from "@/types/post";
 
 interface showPostProps {
-    post: {
-        id: number;
-        title: string;
-        body: string;
-    }
+    post: Post;
 }
 
 export default function show({ post }: showPostProps) {

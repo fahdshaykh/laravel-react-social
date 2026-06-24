@@ -37,6 +37,12 @@ function index({ posts }: indexPostProps) {
                                 {post.body.length > 100 ? post.body.substring(0, 100) + '...' : post.body}
                             </p>
 
+                            
+
+                            <p className="mt-2 text-sm text-gray-500">
+                                By: {post.user.name} on: {new Date(post.created_at).toLocaleDateString()}
+                            </p>
+
                             <div className="mt-4">
                                 <Link href={`/posts/${post.id}/edit`} className="text-blue-500 hover:underline mr-4">
                                     Edit

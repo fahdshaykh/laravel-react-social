@@ -2,6 +2,7 @@ import { Link } from "@inertiajs/react";
 import { Post } from "@/types/post";
 import Applayout from "@/layouts/app-layout";
 import { router } from '@inertiajs/react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface indexPostProps {
     posts: Post[];
@@ -27,23 +28,21 @@ function index({ posts }: indexPostProps) {
             ) : (
                 <div>
                     {posts.map((post) => (
-                        <article key={post.id} className="mb-6 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                            <h2 key={post.id} className="text-2xl font-semibold">
-                                <Link href={`/posts/${post.id}`} className="text-blue-500 hover:underline">
-                                    {post.title}
-                                </Link>
-                            </h2>
-                            <p className="mt-2 text-lg">
+                        <Card key={post.id} className="rounded-none border-b-0 last:border-0">
+                            <CardHeader>
+                                <CardTitle>
+                                    <Link href={`/posts/${post.id}`}>
+                                        {post.title}
+                                    </Link>
+                                </CardTitle>
+                                <CardDescription>
+                                    By: {post.user.name} on: {new Date(post.created_at).toLocaleDateString()}
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
                                 {post.body.length > 100 ? post.body.substring(0, 100) + '...' : post.body}
-                            </p>
-
-                            
-
-                            <p className="mt-2 text-sm text-gray-500">
-                                By: {post.user.name} on: {new Date(post.created_at).toLocaleDateString()}
-                            </p>
-
-                            <div className="mt-4">
+                            </CardContent>
+                            <div className="ml-5 mt-4">
                                 <Link href={`/posts/${post.id}/edit`} className="text-blue-500 hover:underline mr-4">
                                     Edit
                                 </Link>
@@ -51,7 +50,7 @@ function index({ posts }: indexPostProps) {
                                     Delete
                                 </button>
                             </div>
-                        </article>
+                        </Card>
                     ))}
                 </div>
             )}

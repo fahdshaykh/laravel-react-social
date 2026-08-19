@@ -7,13 +7,10 @@ interface Applayoutprops {
 
 export default function Applayout({ children}: Applayoutprops) {
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="bg-gray-50 min-h-screen">
             <AppHeader />
-            <main className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-                <div className="bg-white shadow-md rounded-lg p-6">
-                    {children}
-                </div>
-            </main>
+            <main className="max-w-4xl mx-auto px-4 py-8">{children}</main>
+            
         </div>
     );
 }

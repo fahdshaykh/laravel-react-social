@@ -1,6 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
 import AppHeaderLogo from "./app-header-logo";
 import AppHeaderLinks from "./app-header-links";
+import { Button } from "./ui/button";
 
 
 export default function AppHeader() {
@@ -12,9 +13,11 @@ export default function AppHeader() {
                     <AppHeaderLogo />
 
                     <div className="flex space-x-6 items-center">
-                        <Link href="/posts/create" className="text-gray-800 hover:text-gray-600">
-                            Create Post
-                        </Link>
+                        <Button>
+                            <Link href="/posts/create">
+                                Create Post
+                            </Link>
+                        </Button>
                         <AppHeaderLinks href="/">Home</AppHeaderLinks>
                         <AppHeaderLinks href="/about">About</AppHeaderLinks>
                         <AppHeaderLinks href="/posts">Posts</AppHeaderLinks>

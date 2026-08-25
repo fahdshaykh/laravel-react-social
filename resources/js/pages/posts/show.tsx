@@ -1,20 +1,60 @@
-import { Link } from "@inertiajs/react";
-import Applayout from "@/layouts/app-layout";
-import { Post } from "@/types/post";
+import AppLayout from "@/layouts/app-layout";
+import { Post } from "@/types";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import CommentForm from "@/components/comment-form";
+import posts from "@/routes/posts";
+import CommentCard from "@/components/comment-card";
 
-interface showPostProps {
+interface PostsShowProps {
     post: Post;
 }
 
-export default function show({ post }: showPostProps) {
-  return (
-    <Applayout>
-        <h1 className="text-3xl font-bold">{post.title}</h1>
-        <p className="mt-4 text-lg">{post.body}</p>
-        <p className="mt-2">By {post.user.name} On {new Date(post.created_at).toLocaleDateString()}</p>
-        <Link href="/" className="text-blue-500 hover:underline mt-4 inline-block">
-            Go back to Welcome Page
-        </Link>
-    </Applayout>
-  )
+export default function PostsShow({ post }: PostsShowProps) {
+    return (
+        <AppLayout>
+            <div className="space-y-6">
+                {/* Post Content */}
+                <Card className="rounded-none">
+                    <CardHeader>
+                        <CardTitle className="text-2xl">{post.title}</CardTitle>
+                        <CardDescription>
+                            By {post.user?.name} on{" "}
+                            {new Date(post.created_at).toLocaleDateString()}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-gray-700 whitespace-pre-wrap">
+                            {post.body}
+                        </p>
+                    </CardContent>
+                </Card>
+
+                {/* comment form  */}
+                <CommentForm postId={post.id} />
+
+                {/* comment card  */}
+                <div className="space-y-4">
+                  {post.comments && post.comments.length > 0 ? 
+                  <div>
+                    {post.comments.map((comment) => (
+                      <CommentCard key={comment.id} comment={comment} />
+                    ))}
+                  </div>
+                  : 
+                  (
+                    <div className="text-center py-8">
+                        <p className="text-gray-500">No comments yet.</p>
+                    </div>
+                  )
+                  }
+                </div>
+            </div>
+        </AppLayout>
+    );
 }
